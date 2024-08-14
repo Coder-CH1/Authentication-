@@ -1,2 +1,2 @@
 # Authentication-
-A JavaScript-based user authorization.
+A JavaScript-based user authentication.
