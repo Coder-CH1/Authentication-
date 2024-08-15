@@ -1,5 +1,5 @@
-var sqlite3 = require('better-sqlite3');
-var db = new sqlite3.Database('./my.db');
+var Database = require('better-sqlite3');
+var db = new Database('./my.db');
 var express = require('express');
 var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
