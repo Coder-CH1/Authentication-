@@ -20,7 +20,7 @@ var createUsersTable = () => {
         name text,
         email text UNIQUE,
         password text)`;
-        return db.run(sqlQuery);
+     db.prepare(sqlQuery).run();
 }
 
 var findUserByEmail = (email, cb) => {
@@ -52,7 +52,7 @@ router.post('/register', (req, res) => {
             res.status(200).send({
                 'user': user, 'access_token': access_token, 'expires_in': expiresIn
             });
-            res.status(200).send({access_token: ''});
+            //res.status(200).send({access_token: ''});
         });
     });
 });
@@ -77,5 +77,5 @@ expiresIn: expires_in
 app.use(router);
 var port = process.env.PORT || 3000;
 var server = app.listen(port, () => {
-    console.log('server listening at http://localhost:' + post);
+    console.log('server listening at http://localhost:' + port);
 })
