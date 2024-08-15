@@ -27,17 +27,22 @@ var createUsersTable = () => {
 }
 
 var findUserByEmail = (email, cb) => {
-    return db.get(`SELECT * FROM users WHERE email = ?`, [email], (err, row) => {
-        cb(err, row)
-    });
+    var sqlQuery = `SELECT * FROM users WHERE email = ?`;
+    var user = db.prepare(sqlQuery).get(email);
+    cb(null, user);
 }
-createUsersTable();
 
 var createUser = (user, cb) => {
-    return db.run(`INSERT INTO users (name, email, password) VALUES (?,?,?)`, user, (err) => {
-cb(err)
-    });
-}
+var query = `INSERT INTO users (name, email, password) VALUES (?,?,?)`;
+ try {
+    db.prepare(query).run(user);
+    cb(null);
+ } catch (err) {
+    cb(err);
+ }
+};
+
+createUsersTable();
 
 app.get('/test-db', (req, res) => {
     try {
