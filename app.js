@@ -7,8 +7,8 @@ var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 var router = express.Router();
-router.use(bodyParser.urlencoded({extended: false}));
-router.use(bodyParser.json());
+//router.use(bodyParser.urlencoded({extended: false}));
+//router.use(bodyParser.json());
 
 var app = express();
 app.use(express.json());
@@ -49,6 +49,7 @@ app.get('/test-db', (req, res) => {
 })
 
 router.post('/register', (req, res) => {
+    console.log('Regiter route');
     var name = req.body.name;
     var email = req.body.email;
     var password = bcrypt.hashSync(req.body.password);
