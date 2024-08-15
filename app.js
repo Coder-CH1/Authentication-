@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var Database = require('better-sqlite3');
 var db = new Database('./my.db');
 var express = require('express');
@@ -11,7 +13,8 @@ router.use(bodyParser.json());
 var app = express();
 app.use(express.json());
 
-var SECRET_KEY = '';
+var SECRET_KEY = process.env.SECRET_KEY || '';
+var PORT = process.env.PORT || 3000;
 
 var createUsersTable = () => {
     var sqlQuery = `
@@ -74,8 +77,12 @@ expiresIn: expires_in
     });
 });
 
+router.post('/logout', (req, res) => {
+res.status(200).send('logged out successfully');
+});
+
 app.use(router);
-var port = process.env.PORT || 3000;
-var server = app.listen(port, () => {
-    console.log('server listening at http://localhost:' + port);
+//var port = process.env.PORT || 3000;
+var server = app.listen(PORT, () => {
+    console.log('server listening at http://localhost:' + PORT);
 })
