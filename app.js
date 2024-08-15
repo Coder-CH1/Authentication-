@@ -39,6 +39,15 @@ cb(err)
     });
 }
 
+app.get('/test-db', (req, res) => {
+    try {
+        var result = db.prepare('SELECT 1').get();
+        res.status(200).json({message: 'Database connection is OK', result});
+    } catch (err) {
+        res.status(500).json({ message: 'Database connection error', err});
+    }
+})
+
 router.post('/register', (req, res) => {
     var name = req.body.name;
     var email = req.body.email;
